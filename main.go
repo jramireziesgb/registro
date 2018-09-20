@@ -28,7 +28,6 @@ func main() {
 	filePtr := flag.String("f", "", "Nombre del fichero .csv")
 	prefixPtr := flag.String("x", "", "Prefijo para los nombres de usurio")
 	passwdPtr := flag.String("p", "", "Contraseña para los usuarios")
-	grupoPtr := flag.String("g", "", "Grupo al que pertenece los usurios")
 
 	flag.Parse()
 
@@ -78,7 +77,7 @@ func main() {
 	var usuario lazyadmin.User
 
 	for _, v := range alumnos[1:] {
-		usuario.NewUser(*prefixPtr+"_", v.Nombre, v.Apellidos, *passwdPtr, "", "", "", "", "", "", "", "", *grupoPtr)
+		usuario.NewUser(*prefixPtr+"_", v.Nombre, v.Apellidos, *passwdPtr, "", "", "", "", "", "", "", "", v.Curso)
 		usuarios = append(usuarios, usuario)
 	}
 
