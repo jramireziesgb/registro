@@ -31,7 +31,7 @@ func main() {
 
 	flag.Parse()
 
-	if *filePtr == "" || *passwdPtr == "" {
+	if *filePtr == "" {
 		flag.PrintDefaults()
 		os.Exit(1)
 	}
