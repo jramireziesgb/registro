@@ -14,16 +14,43 @@ import (
 // Alumno Registro para almacenar los alumnos del formulario de recogida
 // de datos
 type Alumno struct {
-	TimeStamp string `json:"timestamp"`
-	Curso     string `json:"curso"`
-	Nombre    string `json:"nombre"`
-	Apellidos string `json:"apellidos"`
-	Email     string `json:"email"`
-	Fnac      string `json:"fecha_nac"`
-	Cisco     bool   `json:"cisco"`
+	TimeStamp string
+	Prefijo   string
+	Curso     string
+	Nombre    string
+	Apellidos string
+	Email     string
+	Fnac      string
+	Cisco     bool
 }
 
 func main() {
+
+	prefijos := map[string]string{
+		"1º SMR":            "s1",
+		"2º SMR":            "s2",
+		"1º GA":             "g1",
+		"2º GA":             "g2",
+		"1º FPB":            "f1",
+		"2º FPB":            "f2",
+		"1º Bachillerato A": "b1a",
+		"1º Bachillerato B": "b1b",
+		"1º Bachillerato C": "b1c",
+		"2º Bachillerato":   "b2",
+	}
+
+	grupos := map[string]string{
+		"1º SMR":            "smr1",
+		"2º SMR":            "smr2",
+		"1º GA":             "ga1",
+		"2º GA":             "ga2",
+		"1º FPB":            "fpb1",
+		"2º FPB":            "fpb2",
+		"1º Bachillerato A": "bac1a",
+		"1º Bachillerato B": "bac1b",
+		"1º Bachillerato C": "bac1c",
+		"2º Bachillerato":   "bac2",
+	}
 
 	filePtr := flag.String("f", "", "Nombre del fichero .csv")
 	prefixPtr := flag.String("x", "", "Prefijo para los nombres de usurio")
@@ -54,9 +81,18 @@ func main() {
 			log.Fatal(error)
 		}
 
+		prefix := ""
+
+		if *prefixPtr == "" {
+			prefix = prefijos[line[1]]
+		} else {
+			prefix = *prefixPtr
+		}
+
 		alumno := Alumno{
 			TimeStamp: line[0],
-			Curso:     line[1],
+			Prefijo:   prefix,
+			Curso:     grupos[line[1]],
 			Nombre:    line[2],
 			Apellidos: line[3],
 			Email:     line[4],
@@ -77,7 +113,7 @@ func main() {
 	var usuario lazyadmin.User
 
 	for _, v := range alumnos[1:] {
-		usuario.NewUser(*prefixPtr+"_", v.Nombre, v.Apellidos, *passwdPtr, "", "", "", "", "", "", "", "", v.Curso)
+		usuario.NewUser(v.Prefijo+"_", v.Nombre, v.Apellidos, *passwdPtr, "", "", "", "", "", "", "", "", v.Curso)
 		usuarios = append(usuarios, usuario)
 	}
 
