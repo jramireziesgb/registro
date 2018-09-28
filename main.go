@@ -24,6 +24,8 @@ type Alumno struct {
 	Cisco     bool
 }
 
+const AppVersion = "1.0"
+
 func main() {
 
 	prefijos := map[string]string{
@@ -55,8 +57,14 @@ func main() {
 	filePtr := flag.String("f", "", "Nombre del fichero .csv")
 	prefixPtr := flag.String("x", "", "Prefijo para los nombres de usurio")
 	passwdPtr := flag.String("p", "", "Contraseña para los usuarios")
+	versionPtr := flag.Bool("v", false, "Muestra la versión del programa")
 
 	flag.Parse()
+
+	if *versionPtr {
+		fmt.Println("Versión", AppVersion)
+		os.Exit(0)
+	}
 
 	if *filePtr == "" {
 		flag.PrintDefaults()
