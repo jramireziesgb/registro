@@ -9,6 +9,7 @@ import (
 	"lazyadmin"
 	"log"
 	"os"
+	"github.com/jramireziesgb/lazyadmin"
 )
 
 // Alumno Registro para almacenar los alumnos del formulario de recogida
