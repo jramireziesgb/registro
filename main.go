@@ -6,7 +6,6 @@ import (
 	"flag"
 	"fmt"
 	"io"
-	"lazyadmin"
 	"log"
 	"os"
 	"github.com/jramireziesgb/lazyadmin"
